@@ -2,7 +2,7 @@
 
 namespace DataAccess.Migrations
 {
-    public partial class first : Migration
+    public partial class veritabani : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Email = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Password = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
                 },
                 constraints: table =>
@@ -43,7 +43,8 @@ namespace DataAccess.Migrations
                     Surname = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Email = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Pasword = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
+                    PhoneNumber = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    UserName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,6 +58,7 @@ namespace DataAccess.Migrations
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
                     UserId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    Picture = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Price = table.Column<int>(type: "NUMBER(10)", nullable: false),
@@ -87,6 +89,7 @@ namespace DataAccess.Migrations
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
                     UserId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    Picture = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Price = table.Column<int>(type: "NUMBER(10)", nullable: false),

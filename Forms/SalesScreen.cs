@@ -251,5 +251,11 @@ namespace Forms
             }
             txtGuncelleResim.Text = DosyaYolu;
         }
+
+        private void pnlSell_Paint(object sender, PaintEventArgs e)
+        {
+            //txtUrunFiyati.Text = "Enter text here...";
+        }
+        
     }
 }

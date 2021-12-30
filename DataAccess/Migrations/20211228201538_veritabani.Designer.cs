@@ -9,8 +9,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(SecondHandSaleContext))]
-    [Migration("20211224161326_deneme4")]
-    partial class deneme4
+    [Migration("20211228201538_veritabani")]
+    partial class veritabani
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<string>("Picture")
+                        .HasColumnType("NVARCHAR2(2000)");
+
                     b.Property<int>("Price")
                         .HasColumnType("NUMBER(10)");
 
@@ -104,6 +107,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("Picture")
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("Price")

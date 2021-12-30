@@ -46,78 +46,89 @@ namespace Forms
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(40)))), ((int)(((byte)(66)))));
             this.panel1.Controls.Add(this.btnCikis);
             this.panel1.Controls.Add(this.btnUrunler);
             this.panel1.Controls.Add(this.btnKullanicilar);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(-1, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(161, 497);
+            this.panel1.Size = new System.Drawing.Size(197, 672);
             this.panel1.TabIndex = 0;
             // 
             // btnCikis
             // 
-            this.btnCikis.Location = new System.Drawing.Point(5, 349);
+            this.btnCikis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(40)))), ((int)(((byte)(66)))));
+            this.btnCikis.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnCikis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnCikis.Location = new System.Drawing.Point(23, 363);
             this.btnCikis.Name = "btnCikis";
-            this.btnCikis.Size = new System.Drawing.Size(156, 35);
+            this.btnCikis.Size = new System.Drawing.Size(156, 43);
             this.btnCikis.TabIndex = 3;
-            this.btnCikis.Text = "çıkış";
-            this.btnCikis.UseVisualStyleBackColor = true;
+            this.btnCikis.Text = "Çıkış";
+            this.btnCikis.UseVisualStyleBackColor = false;
             // 
             // btnUrunler
             // 
-            this.btnUrunler.Location = new System.Drawing.Point(5, 291);
+            this.btnUrunler.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnUrunler.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnUrunler.Location = new System.Drawing.Point(23, 285);
             this.btnUrunler.Name = "btnUrunler";
-            this.btnUrunler.Size = new System.Drawing.Size(156, 35);
+            this.btnUrunler.Size = new System.Drawing.Size(156, 43);
             this.btnUrunler.TabIndex = 2;
             this.btnUrunler.Text = "Ürünler";
-            this.btnUrunler.UseVisualStyleBackColor = true;
+            this.btnUrunler.UseVisualStyleBackColor = false;
             this.btnUrunler.Click += new System.EventHandler(this.btnUrunler_Click);
             // 
             // btnKullanicilar
             // 
-            this.btnKullanicilar.Location = new System.Drawing.Point(5, 241);
+            this.btnKullanicilar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(40)))), ((int)(((byte)(66)))));
+            this.btnKullanicilar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnKullanicilar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnKullanicilar.Location = new System.Drawing.Point(23, 205);
             this.btnKullanicilar.Name = "btnKullanicilar";
-            this.btnKullanicilar.Size = new System.Drawing.Size(156, 35);
+            this.btnKullanicilar.Size = new System.Drawing.Size(156, 43);
             this.btnKullanicilar.TabIndex = 1;
-            this.btnKullanicilar.Text = "Kullaıcılar";
-            this.btnKullanicilar.UseVisualStyleBackColor = true;
+            this.btnKullanicilar.Text = "Kullanıcılar";
+            this.btnKullanicilar.UseVisualStyleBackColor = false;
             this.btnKullanicilar.Click += new System.EventHandler(this.btnKullanicilar_Click);
             // 
             // pnlKullaniciler
             // 
             this.pnlKullaniciler.Controls.Add(this.dgvOrtak);
-            this.pnlKullaniciler.Location = new System.Drawing.Point(297, 23);
+            this.pnlKullaniciler.Location = new System.Drawing.Point(250, 80);
             this.pnlKullaniciler.Name = "pnlKullaniciler";
-            this.pnlKullaniciler.Size = new System.Drawing.Size(675, 444);
+            this.pnlKullaniciler.Size = new System.Drawing.Size(700, 500);
             this.pnlKullaniciler.TabIndex = 1;
             // 
             // dgvOrtak
             // 
             this.dgvOrtak.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOrtak.Location = new System.Drawing.Point(12, 20);
+            this.dgvOrtak.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvOrtak.Location = new System.Drawing.Point(0, 0);
             this.dgvOrtak.Name = "dgvOrtak";
             this.dgvOrtak.RowHeadersWidth = 51;
             this.dgvOrtak.RowTemplate.Height = 29;
-            this.dgvOrtak.Size = new System.Drawing.Size(651, 413);
+            this.dgvOrtak.Size = new System.Drawing.Size(700, 500);
             this.dgvOrtak.TabIndex = 0;
             this.dgvOrtak.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrtak_CellClick);
             // 
             // pnlUrunler
             // 
             this.pnlUrunler.Controls.Add(this.dgvUrunlerGetir);
-            this.pnlUrunler.Location = new System.Drawing.Point(255, 92);
+            this.pnlUrunler.Location = new System.Drawing.Point(250, 80);
             this.pnlUrunler.Name = "pnlUrunler";
-            this.pnlUrunler.Size = new System.Drawing.Size(675, 444);
+            this.pnlUrunler.Size = new System.Drawing.Size(700, 500);
             this.pnlUrunler.TabIndex = 2;
             // 
             // dgvUrunlerGetir
             // 
             this.dgvUrunlerGetir.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUrunlerGetir.Location = new System.Drawing.Point(12, 20);
+            this.dgvUrunlerGetir.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvUrunlerGetir.Location = new System.Drawing.Point(0, 0);
             this.dgvUrunlerGetir.Name = "dgvUrunlerGetir";
             this.dgvUrunlerGetir.RowHeadersWidth = 51;
             this.dgvUrunlerGetir.RowTemplate.Height = 29;
-            this.dgvUrunlerGetir.Size = new System.Drawing.Size(651, 413);
+            this.dgvUrunlerGetir.Size = new System.Drawing.Size(700, 500);
             this.dgvUrunlerGetir.TabIndex = 0;
             this.dgvUrunlerGetir.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUrunlerGetir_CellClick);
             // 
@@ -125,7 +136,8 @@ namespace Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1316, 669);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(72)))), ((int)(((byte)(97)))));
+            this.ClientSize = new System.Drawing.Size(1007, 669);
             this.Controls.Add(this.pnlUrunler);
             this.Controls.Add(this.pnlKullaniciler);
             this.Controls.Add(this.panel1);
