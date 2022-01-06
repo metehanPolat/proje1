@@ -62,7 +62,7 @@ namespace Forms
             dgvBtn1.Width = 70;
             // DataGridView e ekleme
 
-
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             DataGridViewImageColumn img = new DataGridViewImageColumn();
             DataGridViewTextBoxColumn urunId = new DataGridViewTextBoxColumn();
             DataGridViewTextBoxColumn name = new DataGridViewTextBoxColumn();
@@ -80,12 +80,6 @@ namespace Forms
             dgvUrunlerGetir.Columns.Add(dgvBtn1);
             img.ImageLayout = DataGridViewImageCellLayout.Stretch;
             Button btn1 = new Button();
-            foreach (var item in sellingItemsManager.GetAll())
-            {
-                Image image = Image.FromFile(item.Picture);
-                dgvUrunlerGetir.Rows.Add(image,item.Id ,item.Name, item.Description, item.Price, item.CategoryId, item.Location);
-
-            }
 
             img.HeaderText = "Image";
             urunId.HeaderText = "UrunId";
@@ -94,6 +88,23 @@ namespace Forms
             price.HeaderText = "Fiyat";
             category.HeaderText = "Kategori";
             location.HeaderText = "Konum";
+
+            string resaultCategory = "bilinmiyor";
+            foreach (var item in sellingItemsManager.GetAll(null))
+            {
+                foreach (var ct in categoryManager.GetAll())
+                {
+                    if (ct.Id == item.CategoryId)
+                    {
+                        resaultCategory = ct.CategoryName;
+                    }
+                }
+                Image image = Image.FromFile(item.Picture);
+                dgvUrunlerGetir.Rows.Add(image,item.Id ,item.Name, item.Description, item.Price, resaultCategory, item.Location);
+
+            }
+
+            
         }
 
         private void dgvOrtak_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -161,6 +172,11 @@ namespace Forms
             price.HeaderText = "Fiyat";
             category.HeaderText = "Kategori";
             location.HeaderText = "Konum";
+        }
+
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

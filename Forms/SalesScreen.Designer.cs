@@ -36,6 +36,9 @@ namespace Forms
             this.button1 = new System.Windows.Forms.Button();
             this.dgvListele = new System.Windows.Forms.DataGridView();
             this.pnlSell = new System.Windows.Forms.Panel();
+            this.btnUrunResimEkle = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtUrunResmi = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cmbUrunKategorisi = new System.Windows.Forms.ComboBox();
             this.btnSell = new System.Windows.Forms.Button();
@@ -85,7 +88,7 @@ namespace Forms
             this.panel1.Controls.Add(this.btnCikis);
             this.panel1.Controls.Add(this.btnUrunSat);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(9, 12);
+            this.panel1.Location = new System.Drawing.Point(0, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(201, 652);
             this.panel1.TabIndex = 0;
@@ -155,6 +158,9 @@ namespace Forms
             // pnlSell
             // 
             this.pnlSell.BackColor = System.Drawing.Color.White;
+            this.pnlSell.Controls.Add(this.btnUrunResimEkle);
+            this.pnlSell.Controls.Add(this.label14);
+            this.pnlSell.Controls.Add(this.txtUrunResmi);
             this.pnlSell.Controls.Add(this.label13);
             this.pnlSell.Controls.Add(this.cmbUrunKategorisi);
             this.pnlSell.Controls.Add(this.btnSell);
@@ -173,6 +179,36 @@ namespace Forms
             this.pnlSell.TabIndex = 2;
             this.pnlSell.Visible = false;
             this.pnlSell.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSell_Paint);
+            // 
+            // btnUrunResimEkle
+            // 
+            this.btnUrunResimEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(63)))), ((int)(((byte)(85)))));
+            this.btnUrunResimEkle.ForeColor = System.Drawing.Color.White;
+            this.btnUrunResimEkle.Location = new System.Drawing.Point(167, 407);
+            this.btnUrunResimEkle.Name = "btnUrunResimEkle";
+            this.btnUrunResimEkle.Size = new System.Drawing.Size(68, 40);
+            this.btnUrunResimEkle.TabIndex = 16;
+            this.btnUrunResimEkle.Text = "...";
+            this.btnUrunResimEkle.UseVisualStyleBackColor = false;
+            this.btnUrunResimEkle.Click += new System.EventHandler(this.btnUrunResimEkle_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(63)))), ((int)(((byte)(85)))));
+            this.label14.Location = new System.Drawing.Point(35, 383);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(63, 28);
+            this.label14.TabIndex = 15;
+            this.label14.Text = "Resim";
+            // 
+            // txtUrunResmi
+            // 
+            this.txtUrunResmi.Location = new System.Drawing.Point(35, 414);
+            this.txtUrunResmi.Name = "txtUrunResmi";
+            this.txtUrunResmi.Size = new System.Drawing.Size(126, 27);
+            this.txtUrunResmi.TabIndex = 14;
             // 
             // label13
             // 
@@ -572,5 +608,8 @@ namespace Forms
         private System.Windows.Forms.Button btnGuncelleResim;
         private System.Windows.Forms.TextBox txtGuncelleResim;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button btnUrunResimEkle;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtUrunResmi;
     }
 }

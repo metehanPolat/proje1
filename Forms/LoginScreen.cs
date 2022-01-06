@@ -175,5 +175,29 @@ namespace Forms
                 txtSatisKullaniciAdi.Clear();
             }
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            pnlSatisYapma.Visible = false;
+            pnlSatinAlma.Visible = true;
+            btnSatınAl.Visible = false;
+            btnSatisYap.Visible = true;
+            pnlKayitOl.Visible = false;
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

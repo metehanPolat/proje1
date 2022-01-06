@@ -25,9 +25,17 @@ namespace Business.Concrete
             _sellingItemsDal.Delete(entity);
         }
 
-        public List<SellingItems> GetAll()
+        public List<SellingItems> GetAll(string ara)
         {
-            return _sellingItemsDal.GetAll();
+            if (ara == null)
+            {
+                return _sellingItemsDal.GetAll();
+            }
+            else
+            {
+                return _sellingItemsDal.GetAll(p=>p.Name.Contains(ara));
+            }
+            
         }
 
         public List<SellingItems> GetAllCategoryId(int id)
@@ -46,6 +54,11 @@ namespace Business.Concrete
         public List<SellingItems> GetAllUrunId(int id)
         {
             return _sellingItemsDal.GetAll(p => p.Id == id);
+        }
+
+        public List<SellingItems> GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

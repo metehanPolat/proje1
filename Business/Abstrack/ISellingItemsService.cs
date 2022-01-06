@@ -9,6 +9,7 @@ namespace Business.Abstrack
     {
         List<SellingItems> GetAllCategoryId(int id);
         List<SellingItems> GetAll();
+        List<SellingItems> GetAll(string ara);
         void Add(SellingItems entity);
         void Update(SellingItems entity);
         void Delete(SellingItems entity);

@@ -40,6 +40,46 @@ namespace Forms
             {
                 cmbKategoriler.Items.Add(item.CategoryName.ToString());
             }
+            DataGridViewButtonColumn dgvBtn = new DataGridViewButtonColumn();
+            DataGridViewImageColumn img = new DataGridViewImageColumn();
+            DataGridViewTextBoxColumn userId = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn urunId = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn name = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn description = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn price = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn category = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn location = new DataGridViewTextBoxColumn();
+            dataGridView1.Columns.Add(img);
+            dataGridView1.Columns.Add(userId);
+            dataGridView1.Columns.Add(urunId);
+            dataGridView1.Columns.Add(name);
+            dataGridView1.Columns.Add(description);
+            dataGridView1.Columns.Add(price);
+            dataGridView1.Columns.Add(category);
+            dataGridView1.Columns.Add(location);
+            dataGridView1.Columns.Add(dgvBtn);
+
+            img.HeaderText = "Image";
+            userId.HeaderText = "UserId";
+            urunId.HeaderText = "Ürün Numarası";
+            name.HeaderText = "İsim";
+            description.HeaderText = "Açıklama";
+            price.HeaderText = "Fiyat";
+            category.HeaderText = "Kategori";
+            location.HeaderText = "Konum";
+            userId.Visible = false;
+            urunId.Visible = false;
+            dgvBtn.Text = "Satın Al";
+            dgvBtn.UseColumnTextForButtonValue = true;
+            //çerçeve rengi
+            dgvBtn.DefaultCellStyle.BackColor = Color.Blue;
+            //buton seçiliyken çerçeve rengi
+            dgvBtn.DefaultCellStyle.SelectionBackColor = Color.Red;
+            // Butonun genişiliği
+            dgvBtn.Width = 70;
+            // DataGridView e ekleme
+
+            img.ImageLayout = DataGridViewImageCellLayout.Stretch;
         }
 
         private void dataGridView_cu_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -53,65 +93,38 @@ namespace Forms
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             SellingItemsManager sellingItemsManager = new SellingItemsManager(new EfSellingItemsDal());
             int resaultKategorId = 0;
+
+            dataGridView1.Rows.Clear();
+            string resaultCategory = "bilinmiyor";
             if (cmbKategoriler.Text =="")
             {
-                dataGridView1.Rows.Clear();
-                dataGridView1.Columns.Clear();
-
-                //dataGridView_cu.DataSource = sellingItemsManager.GetAll();
-                DataGridViewButtonColumn dgvBtn = new DataGridViewButtonColumn();
-                dgvBtn.Text = "Satın Al";
-                dgvBtn.UseColumnTextForButtonValue = true;
-                //çerçeve rengi
-                dgvBtn.DefaultCellStyle.BackColor = Color.Blue;
-                //buton seçiliyken çerçeve rengi
-                dgvBtn.DefaultCellStyle.SelectionBackColor = Color.Red;
-                // Butonun genişiliği
-                dgvBtn.Width = 70;
-                // DataGridView e ekleme
-
-
-                DataGridViewImageColumn img = new DataGridViewImageColumn();
-                DataGridViewTextBoxColumn userId = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn urunId = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn name = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn description = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn price = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn category = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn location = new DataGridViewTextBoxColumn();
-                dataGridView1.Columns.Add(img);
-                dataGridView1.Columns.Add(userId);
-                dataGridView1.Columns.Add(urunId);
-                dataGridView1.Columns.Add(name);
-                dataGridView1.Columns.Add(description);
-                dataGridView1.Columns.Add(price);
-                dataGridView1.Columns.Add(category);
-                dataGridView1.Columns.Add(location);
-                dataGridView1.Columns.Add(dgvBtn);
-                img.ImageLayout = DataGridViewImageCellLayout.Stretch;
-                Button btn1 = new Button();
-                foreach (var item in sellingItemsManager.GetAll())
+                List<SellingItems> resaultDeneme;
+                if (textBox_cuSearch.Text == "")
                 {
+                    resaultDeneme = sellingItemsManager.GetAll(null);
+                }
+                else
+                {
+                    resaultDeneme = sellingItemsManager.GetAll(textBox_cuSearch.Text.ToString());
+                }
+                Button btn1 = new Button();
+                foreach (var item in resaultDeneme)
+                {
+                    foreach (var ct in categoryManager.GetAll())
+                    {
+                        if (ct.Id == item.CategoryId)
+                        {
+                            resaultCategory = ct.CategoryName;
+                        }
+                    }
                     Image image = Image.FromFile(item.Picture);
-                    dataGridView1.Rows.Add(image,item.UserId,item.Id,item.Name, item.Description, item.Price, item.CategoryId, item.Location);
+                    dataGridView1.Rows.Add(image,item.UserId,item.Id,item.Name, item.Description, item.Price, resaultCategory, item.Location);
 
                 }
-
-                img.HeaderText = "Image";
-                userId.HeaderText = "UserId";
-                urunId.HeaderText = "Ürün Numarası";
-                name.HeaderText = "İsim";
-                description.HeaderText = "Açıklama";
-                price.HeaderText = "Fiyat";
-                category.HeaderText = "Kategori";
-                location.HeaderText = "Konum";
 
             }
             else
             {
-                dataGridView1.Rows.Clear();
-                dataGridView1.Columns.Clear();
-                
                 foreach (var item in categoryManager.GetAll())
                 {
                     if (cmbKategoriler.Text == item.CategoryName)
@@ -119,54 +132,25 @@ namespace Forms
                         resaultKategorId = item.Id;
                     }
                 }
-                
-                //dataGridView_cu.DataSource = sellingItemsManager.GetAll();
-                DataGridViewButtonColumn dgvBtn = new DataGridViewButtonColumn();
-                dgvBtn.Text = "Satın Al";
-                dgvBtn.UseColumnTextForButtonValue = true;
-                //çerçeve rengi
-                dgvBtn.DefaultCellStyle.BackColor = Color.Blue;
-                //buton seçiliyken çerçeve rengi
-                dgvBtn.DefaultCellStyle.SelectionBackColor = Color.Red;
-                // Butonun genişiliği
-                dgvBtn.Width = 70;
-                // DataGridView e ekleme
-                
 
-                DataGridViewImageColumn img = new DataGridViewImageColumn();
-                DataGridViewTextBoxColumn userId = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn urunId = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn name = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn description = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn price = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn category = new DataGridViewTextBoxColumn();
-                DataGridViewTextBoxColumn location = new DataGridViewTextBoxColumn();
-                dataGridView1.Columns.Add(img);
-                dataGridView1.Columns.Add(userId);
-                dataGridView1.Columns.Add(urunId);
-                dataGridView1.Columns.Add(name);
-                dataGridView1.Columns.Add(description);
-                dataGridView1.Columns.Add(price);
-                dataGridView1.Columns.Add(category);
-                dataGridView1.Columns.Add(location);
-                dataGridView1.Columns.Add(dgvBtn);
-                img.ImageLayout = DataGridViewImageCellLayout.Stretch;
+                //dataGridView_cu.DataSource = sellingItemsManager.GetAll();
+                
                 Button btn1 = new Button();
                 foreach (var item in sellingItemsManager.GetAllCategoryId(resaultKategorId))
                 {
+                    foreach (var ct in categoryManager.GetAll())
+                    {
+                        if (ct.Id == item.CategoryId)
+                        {
+                            resaultCategory = ct.CategoryName;
+                        }
+                    }
                     Image image = Image.FromFile(item.Picture);
-                    dataGridView1.Rows.Add(image,item.UserId,item.Id,item.Name, item.Description, item.Price, item.CategoryId,item.Location);
+                    dataGridView1.Rows.Add(image,item.UserId,item.Id,item.Name, item.Description, item.Price, resaultCategory, item.Location);
 
                 }
                 
-                img.HeaderText = "Image";
-                userId.HeaderText = "UserId";
-                urunId.HeaderText = "UrunId";
-                name.HeaderText = "İsim";
-                description.HeaderText = "Açıklama";
-                price.HeaderText = "Fiyat";
-                category.HeaderText = "Kategori";
-                location.HeaderText = "Konum";
+                
                 
 
                 //dataGridView_cu.DataSource = sellingItemsManager.GetAllCategoryId(resaultKategorId);
@@ -201,6 +185,7 @@ namespace Forms
                     resaultImage = item.Picture;
                 }
             }
+            soldItems.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[2].Value.ToString());
             soldItems.Picture = resaultImage;
             soldItems.UserId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[1].Value.ToString());
             soldItems.Name = dataGridView1.CurrentRow.Cells[3].Value.ToString();
@@ -210,28 +195,25 @@ namespace Forms
             soldItems.Location = dataGridView1.CurrentRow.Cells[7].Value.ToString();
             soldManager.Add(soldItems);
 
-            var resaultDelete = sellingItemsManager.GetAllUrunId(Convert.ToInt32(dataGridView1.CurrentRow.Cells[1].Value.ToString()));
 
-            foreach (var item in resaultDelete)
+            dataGridView1.Rows.Clear();
+            Button btn1 = new Button();
+            foreach (var item in sellingItemsManager.GetAll())
             {
-                sellingItemsManager.Delete(item);
+                Image image = Image.FromFile(item.Picture);
+                dataGridView1.Rows.Add(image, item.UserId, item.Id, item.Name, item.Description, item.Price, item.CategoryId, item.Location);
+
             }
 
-            dataGridView1.DataSource = sellingItemsManager.GetAll();
-
             MessageBox.Show("Satın Alma işlemi Başarıyla Geerçekleşti!!!");
-
-            //MessageBox.Show(dataGridView_cu.CurrentRow.Cells[3].Value.ToString()); //2 satır boş verme dikkat et
-
-            //foreach (var item in sellingItemsManager.GetAll())
-            //{
-
-            //}
         }
 
         private void textBox_cuSearch_TextChanged(object sender, EventArgs e)
         {
-
+            //DataTable sam = (DataTable)dataGridView1.DataSource;
+            //DataView dv = sam.DefaultView;
+            //dv.RowFilter = "İsim LIKE'%" + textBox_cuSearch.Text + "%'";
+            //dataGridView1.DataSource = dv;
         }
     }
 }

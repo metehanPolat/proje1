@@ -20,48 +20,37 @@ namespace Forms
 
         private void SalesScreen_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            dgvListele.Rows.Clear();
             SellingItemsManager sellingItemsManager = new SellingItemsManager(new EfSellingItemsDal());
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal()); 
             pnlSell.Visible = false;
             pnlUrunListele.Visible = true;
             pnlUrunGuncelle.Visible = false;
             pnlSatilanUrunler.Visible = false;
 
-            DataGridViewImageColumn img = new DataGridViewImageColumn();
-            DataGridViewTextBoxColumn id = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn name = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn description = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn price = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn category = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn location = new DataGridViewTextBoxColumn();
-            dgvListele.Columns.Add(img);
-            dgvListele.Columns.Add(id);
-            dgvListele.Columns.Add(name);
-            dgvListele.Columns.Add(description);
-            dgvListele.Columns.Add(price);
-            dgvListele.Columns.Add(category);
-            dgvListele.Columns.Add(location);
-            img.ImageLayout = DataGridViewImageCellLayout.Stretch;
 
+            string resaultCategory ="bilinmiyor";
             foreach (var item in sellingItemsManager.GetAllUserId(LoginScreen.resaultUserId))
             {
+                foreach (var ct in categoryManager.GetAll())
+                {
+                    if (ct.Id == item.CategoryId)
+                    {
+                        resaultCategory = ct.CategoryName;
+                    }
+                }
                 Image image = Image.FromFile(item.Picture);
                 //img.Image = image;
-                dgvListele.Rows.Add(image,item.Id ,item.Name, item.Description, item.Price, item.CategoryId, item.Location);
+                dgvListele.Rows.Add(image,item.Id ,item.Name, item.Description, item.Price, resaultCategory, item.Location);
 
             }
 
-            img.HeaderText = "Image";
-            id.HeaderText = "Id";
-            name.HeaderText = "İsim";
-            description.HeaderText = "Açıklama";
-            price.HeaderText = "Fiyat";
-            category.HeaderText = "Kategori";
-            location.HeaderText = "Konum";
+            
 
             //img.Name = "img";
 
@@ -94,7 +83,7 @@ namespace Forms
             }
 
             
-            if (txtKonum.Text !="" && txtUrunAciklama.Text !="" && txtUrunAdi.Text !="" && txtUrunFiyati.Text !="" && cmbUrunKategorisi.Text != "")
+            if (txtKonum.Text !="" && txtUrunAciklama.Text !="" && txtUrunAdi.Text !="" && txtUrunFiyati.Text !="" && cmbUrunKategorisi.Text != "" && txtUrunResmi.Text !="")
             {
                 sellingItems.UserId = LoginScreen.resaultUserId;
                 sellingItems.Name = txtUrunAdi.Text;
@@ -102,6 +91,7 @@ namespace Forms
                 sellingItems.Price = Convert.ToInt32(txtUrunFiyati.Text);
                 sellingItems.CategoryId = resaultId;
                 sellingItems.Location = txtKonum.Text;
+                sellingItems.Picture = txtUrunResmi.Text;
                 sellingItemsManager.Add(sellingItems);
                 MessageBox.Show("Kayıt işlemi Başarıyla Geerçekleşti!!!");
 
@@ -109,6 +99,7 @@ namespace Forms
                 txtUrunAciklama.Clear();
                 txtUrunAdi.Clear();
                 txtUrunFiyati.Clear();
+                txtUrunResmi.Clear();
             }
             else
             {
@@ -162,45 +153,31 @@ namespace Forms
 
         private void btnSatilanUrunler_Click(object sender, EventArgs e)
         {
+            dgvSatilanUrunler.Rows.Clear();
             pnlSell.Visible = false;
             pnlUrunListele.Visible = false;
             pnlUrunGuncelle.Visible = false;
             pnlSatilanUrunler.Visible = true;
-            SoldManager soldManager = new SoldManager(new EfSoldItemsDal());
-            //SellingItemsManager sellingItemsManager = new SellingItemsManager(new EfSellingItemsDal());
-            DataGridViewImageColumn img = new DataGridViewImageColumn();
-            DataGridViewTextBoxColumn id = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn name = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn description = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn price = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn category = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn location = new DataGridViewTextBoxColumn();
-            dgvSatilanUrunler.Columns.Add(img);
-            dgvSatilanUrunler.Columns.Add(id);
-            dgvSatilanUrunler.Columns.Add(name);
-            dgvSatilanUrunler.Columns.Add(description);
-            dgvSatilanUrunler.Columns.Add(price);
-            dgvSatilanUrunler.Columns.Add(category);
-            dgvSatilanUrunler.Columns.Add(location);
-            img.ImageLayout = DataGridViewImageCellLayout.Stretch;
 
-            foreach (var item in soldManager.GetAll())
+            string resaultCategory = "bilinmiyor";
+            SoldManager soldManager = new SoldManager(new EfSoldItemsDal());
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+            foreach (var item in soldManager.GetAllUserId(LoginScreen.resaultUserId))
             {
+                foreach (var ct in categoryManager.GetAll())
+                {
+                    if (ct.Id == item.CategoryId)
+                    {
+                        resaultCategory = ct.CategoryName;
+                    }
+                }
                 Image image = Image.FromFile(item.Picture);
                 //img.Image = image;
-                dgvSatilanUrunler.Rows.Add(image, item.Id, item.Name, item.Description, item.Price, item.CategoryId, item.Location);
+                dgvSatilanUrunler.Rows.Add(image, item.Id, item.Name, item.Description, item.Price, resaultCategory, item.Location);
 
             }
 
-            img.HeaderText = "Image";
-            id.HeaderText = "Id";
-            name.HeaderText = "İsim";
-            description.HeaderText = "Açıklama";
-            price.HeaderText = "Fiyat";
-            category.HeaderText = "Kategori";
-            location.HeaderText = "Konum";
-
-            //dgvSatilanUrunler.DataSource = soldManager.GetAllUserId(LoginScreen.resaultUserId);
+            
         }
 
         private void btnCikis_Click(object sender, EventArgs e)
@@ -219,17 +196,57 @@ namespace Forms
                 cmbUrunKategorisi.Items.Add(item.CategoryName.ToString());
             }
 
-            //DataGridViewButtonColumn dgvBtn = new DataGridViewButtonColumn();
-            //dgvBtn.Text = "Satın Al";
-            //dgvBtn.UseColumnTextForButtonValue = true;
-            ////çerçeve rengi
-            //dgvBtn.DefaultCellStyle.BackColor = Color.Blue;
-            ////buton seçiliyken çerçeve rengi
-            //dgvBtn.DefaultCellStyle.SelectionBackColor = Color.Red;
-            //// Butonun genişiliği
-            //dgvBtn.Width = 70;
-            //// DataGridView e ekleme
-            //dgvListele.Columns.Add(dgvBtn);
+            DataGridViewImageColumn img = new DataGridViewImageColumn();
+            DataGridViewTextBoxColumn id = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn name = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn description = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn price = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn category = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn location = new DataGridViewTextBoxColumn();
+            dgvListele.Columns.Add(img);
+            dgvListele.Columns.Add(id);
+            dgvListele.Columns.Add(name);
+            dgvListele.Columns.Add(description);
+            dgvListele.Columns.Add(price);
+            dgvListele.Columns.Add(category);
+            dgvListele.Columns.Add(location);
+            img.ImageLayout = DataGridViewImageCellLayout.Stretch;
+
+            img.HeaderText = "Image";
+            id.HeaderText = "Id";
+            name.HeaderText = "İsim";
+            description.HeaderText = "Açıklama";
+            price.HeaderText = "Fiyat";
+            category.HeaderText = "Kategori";
+            location.HeaderText = "Konum";
+            id.Visible = false;
+
+            SoldManager soldManager = new SoldManager(new EfSoldItemsDal());
+            DataGridViewImageColumn img2 = new DataGridViewImageColumn();
+            DataGridViewTextBoxColumn id2 = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn name2 = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn description2 = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn price2 = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn category2 = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn location2 = new DataGridViewTextBoxColumn();
+
+            dgvSatilanUrunler.Columns.Add(img2);
+            dgvSatilanUrunler.Columns.Add(id2);
+            dgvSatilanUrunler.Columns.Add(name2);
+            dgvSatilanUrunler.Columns.Add(description2);
+            dgvSatilanUrunler.Columns.Add(price2);
+            dgvSatilanUrunler.Columns.Add(category2);
+            dgvSatilanUrunler.Columns.Add(location2);
+            img2.ImageLayout = DataGridViewImageCellLayout.Stretch;
+            img2.HeaderText = "Image";
+            id2.HeaderText = "Id";
+            name2.HeaderText = "İsim";
+            description2.HeaderText = "Açıklama";
+            price2.HeaderText = "Fiyat";
+            category2.HeaderText = "Kategori";
+            location2.HeaderText = "Konum";
+            id2.Visible = false;
+
         }
 
         private void btnGuncelleResim_Click(object sender, EventArgs e)
@@ -256,6 +273,25 @@ namespace Forms
         {
             //txtUrunFiyati.Text = "Enter text here...";
         }
-        
+
+        private void btnUrunResimEkle_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            //file.InitialDirectory = "C:";
+            file.RestoreDirectory = true; // önceki açılan yerden açılıcak
+            file.Filter = "Resim |*.png| Resim|*.jpg";
+            file.FilterIndex = 2; // 2 filtreyi uygular
+
+            file.CheckFileExists = false; // dosya kısmına bir isim yazıldığında var mı yok mu bakar
+            file.Title = "Resimi Seçiniz..."; // başlık
+
+            string DosyaYolu = "a";
+            if (file.ShowDialog() == DialogResult.OK)// dosya seçildiyse gir
+            {
+                DosyaYolu = file.FileName;//seçilen dosyanın tüm yolunu verir
+                //string DosyaAdi = file.SafeFileName; //seçilen dosyanın adını verir
+            }
+            txtUrunResmi.Text = DosyaYolu;
+        }
     }
 }
