@@ -109,10 +109,37 @@ namespace Forms
 
         private void btnUrunDuzenle_Click(object sender, EventArgs e)
         {
-            pnlSell.Visible = false;
-            pnlUrunGuncelle.Visible = true;
-            pnlUrunListele.Visible = false;
-            pnlSatilanUrunler.Visible = false;
+            SellingItemsManager sellingItemsManager = new SellingItemsManager(new EfSellingItemsDal());
+            bool tut=false;
+            foreach (var item in sellingItemsManager.GetAllUserId(LoginScreen.resaultUserId))
+            {
+                if (item.Id == Convert.ToInt32(txtUrunDuzenle.Text.ToString()))
+                {
+                    tut = true;
+                    break;
+                }
+            }
+            if (tut)
+            {
+                pnlSell.Visible = false;
+                pnlUrunGuncelle.Visible = true;
+                pnlUrunListele.Visible = false;
+                pnlSatilanUrunler.Visible = false;
+                foreach (var item in sellingItemsManager.GetAllUrunId(Convert.ToInt32(txtUrunDuzenle.Text.ToString())))
+                {
+                    txtGuncelleKonum.Text = item.Location;
+                    txtGuncelleResim.Text = item.Picture;
+                    txtGuncelleUrunAciklama.Text = item.Description;
+                    txtGuncelleUrunAdi.Text = item.Name;
+                    txtGuncelleUrunFiyati.Text = item.Price.ToString();
+                    
+                }
+            }
+            else
+            {
+                MessageBox.Show("Yanlış bir Ürün Numarası Girdiniz !!!!");
+            }
+            
         }
 
         private void btnGuncelle_Click(object sender, EventArgs e)
@@ -210,7 +237,7 @@ namespace Forms
             dgvListele.Columns.Add(price);
             dgvListele.Columns.Add(category);
             dgvListele.Columns.Add(location);
-            img.ImageLayout = DataGridViewImageCellLayout.Stretch;
+            img.ImageLayout = DataGridViewImageCellLayout.Zoom;
 
             img.HeaderText = "Image";
             id.HeaderText = "Id";
@@ -219,7 +246,7 @@ namespace Forms
             price.HeaderText = "Fiyat";
             category.HeaderText = "Kategori";
             location.HeaderText = "Konum";
-            id.Visible = false;
+            
 
             SoldManager soldManager = new SoldManager(new EfSoldItemsDal());
             DataGridViewImageColumn img2 = new DataGridViewImageColumn();
@@ -237,7 +264,7 @@ namespace Forms
             dgvSatilanUrunler.Columns.Add(price2);
             dgvSatilanUrunler.Columns.Add(category2);
             dgvSatilanUrunler.Columns.Add(location2);
-            img2.ImageLayout = DataGridViewImageCellLayout.Stretch;
+            img2.ImageLayout = DataGridViewImageCellLayout.Zoom;
             img2.HeaderText = "Image";
             id2.HeaderText = "Id";
             name2.HeaderText = "İsim";
@@ -247,6 +274,23 @@ namespace Forms
             location2.HeaderText = "Konum";
             id2.Visible = false;
 
+            dgvSatilanUrunler.RowHeadersVisible = false; // ilk baştaki kendi eklediği sütunu kaldırır.
+            
+            dgvSatilanUrunler.Columns[3].Width = 200;
+            dgvSatilanUrunler.Columns[4].Width = 200;
+            dgvSatilanUrunler.Columns[5].Width = 200;
+            dgvSatilanUrunler.Columns[6].Width = 200;
+            //dgvSatilanUrunler.Columns[7].Width = 150;
+            //dgvSatilanUrunler.Columns[8].Width = 150;
+
+            dgvListele.RowHeadersVisible = false; // ilk baştaki kendi eklediği sütunu kaldırır.
+            
+            dgvListele.Columns[3].Width = 169;
+            dgvListele.Columns[4].Width = 169;
+            dgvListele.Columns[5].Width = 169;
+            dgvListele.Columns[6].Width = 152;
+            //dgvListele.Columns[7].Width = 150;
+            //dgvListele.Columns[8].Width = 150;
         }
 
         private void btnGuncelleResim_Click(object sender, EventArgs e)

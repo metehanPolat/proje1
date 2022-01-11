@@ -103,6 +103,7 @@ namespace Forms
             // 
             // dgvOrtak
             // 
+            this.dgvOrtak.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvOrtak.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOrtak.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvOrtak.Location = new System.Drawing.Point(0, 0);
@@ -123,6 +124,7 @@ namespace Forms
             // 
             // dgvUrunlerGetir
             // 
+            this.dgvUrunlerGetir.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvUrunlerGetir.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUrunlerGetir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvUrunlerGetir.Location = new System.Drawing.Point(0, 0);

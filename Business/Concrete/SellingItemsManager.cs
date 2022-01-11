@@ -58,7 +58,7 @@ namespace Business.Concrete
 
         public List<SellingItems> GetAll()
         {
-            throw new NotImplementedException();
+            return _sellingItemsDal.GetAll();
         }
     }
 }

@@ -24,6 +24,15 @@ namespace Forms
             UserManager userManager = new UserManager(new EfUserDal());
             dgvOrtak.DataSource = userManager.GetAll();
 
+
+            dgvOrtak.Columns[0].Visible = false;
+            dgvOrtak.RowHeadersVisible = false; // ilk baştaki kendi eklediği sütunu kaldırır.
+            
+            dgvOrtak.Columns[3].Width = 110;
+            dgvOrtak.Columns[4].Width = 110;
+            dgvOrtak.Columns[5].Width = 110;
+            dgvOrtak.Columns[6].Width = 115;
+
         }
 
         private void AdminScreen_Load(object sender, EventArgs e)
@@ -78,7 +87,7 @@ namespace Forms
             dgvUrunlerGetir.Columns.Add(category);
             dgvUrunlerGetir.Columns.Add(location);
             dgvUrunlerGetir.Columns.Add(dgvBtn1);
-            img.ImageLayout = DataGridViewImageCellLayout.Stretch;
+            img.ImageLayout = DataGridViewImageCellLayout.Zoom;
             Button btn1 = new Button();
 
             img.HeaderText = "Image";
@@ -103,14 +112,20 @@ namespace Forms
                 dgvUrunlerGetir.Rows.Add(image,item.Id ,item.Name, item.Description, item.Price, resaultCategory, item.Location);
 
             }
-
+            dgvUrunlerGetir.Columns[1].Visible = false;
+            dgvUrunlerGetir.RowHeadersVisible = false; // ilk baştaki kendi eklediği sütunu kaldırır.
             
+            dgvUrunlerGetir.Columns[3].Width = 90;
+            dgvUrunlerGetir.Columns[4].Width = 88;
+            dgvUrunlerGetir.Columns[5].Width = 88;
+            dgvUrunlerGetir.Columns[6].Width = 90;
+            dgvUrunlerGetir.AllowUserToAddRows = false;
         }
 
         private void dgvOrtak_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             UserManager userManager = new UserManager(new EfUserDal());
-            var resault = userManager.GetAllId(Convert.ToInt32(dgvOrtak.CurrentRow.Cells[1].Value.ToString()));
+            var resault = userManager.GetAllId(Convert.ToInt32(dgvOrtak.CurrentRow.Cells[0].Value.ToString()));
             foreach (var item in resault)
             {
                 userManager.Delete(item);
@@ -172,6 +187,14 @@ namespace Forms
             price.HeaderText = "Fiyat";
             category.HeaderText = "Kategori";
             location.HeaderText = "Konum";
+
+            dgvUrunlerGetir.RowHeadersVisible = false; // ilk baştaki kendi eklediği sütunu kaldırır.
+            
+            dgvUrunlerGetir.Columns[3].Width = 90;
+            dgvUrunlerGetir.Columns[4].Width = 90;
+            dgvUrunlerGetir.Columns[5].Width = 90;
+            dgvUrunlerGetir.Columns[6].Width = 90;
+            dgvUrunlerGetir.AllowUserToAddRows = false;
         }
 
         private void btnCikis_Click(object sender, EventArgs e)

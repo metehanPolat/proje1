@@ -20,20 +20,7 @@ namespace Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //SellingItemsManager sellingItemsManager = new SellingItemsManager(new EfSellingItemsDal());
-            ////dataGridView_cu.DataSource = sellingItemsManager.GetAll();
-            //DataGridViewButtonColumn dgvBtn = new DataGridViewButtonColumn();
-            //dgvBtn.Text = "Satın Al";
-            //dgvBtn.UseColumnTextForButtonValue = true;
-            ////çerçeve rengi
-            //dgvBtn.DefaultCellStyle.BackColor = Color.Blue;
-            ////buton seçiliyken çerçeve rengi
-            //dgvBtn.DefaultCellStyle.SelectionBackColor = Color.Red;
-            //// Butonun genişiliği
-            //dgvBtn.Width = 70;
-            //// DataGridView e ekleme
-            //dataGridView_cu.Columns.Add(dgvBtn);
-
+            
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             cmbKategoriler.Items.Add("");
             foreach (var item in categoryManager.GetAll())
@@ -59,7 +46,7 @@ namespace Forms
             dataGridView1.Columns.Add(location);
             dataGridView1.Columns.Add(dgvBtn);
 
-            img.HeaderText = "Image";
+            img.HeaderText = "Resim";
             userId.HeaderText = "UserId";
             urunId.HeaderText = "Ürün Numarası";
             name.HeaderText = "İsim";
@@ -76,10 +63,20 @@ namespace Forms
             //buton seçiliyken çerçeve rengi
             dgvBtn.DefaultCellStyle.SelectionBackColor = Color.Red;
             // Butonun genişiliği
-            dgvBtn.Width = 70;
+            //dgvBtn.Width = 70;
             // DataGridView e ekleme
 
-            img.ImageLayout = DataGridViewImageCellLayout.Stretch;
+            img.ImageLayout = DataGridViewImageCellLayout.Zoom;
+
+            dataGridView1.RowHeadersVisible = false; // ilk baştaki kendi eklediği sütunu kaldırır.
+            dataGridView1.Columns[3].Width = 142;
+            dataGridView1.Columns[4].Width = 142;
+            dataGridView1.Columns[5].Width = 144;
+            dataGridView1.Columns[6].Width = 142;
+            dataGridView1.Columns[7].Width = 142;
+            dataGridView1.Columns[8].Width = 142;
+
+
         }
 
         private void dataGridView_cu_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -117,14 +114,27 @@ namespace Forms
                             resaultCategory = ct.CategoryName;
                         }
                     }
-                    Image image = Image.FromFile(item.Picture);
-                    dataGridView1.Rows.Add(image,item.UserId,item.Id,item.Name, item.Description, item.Price, resaultCategory, item.Location);
+                    if (item.UserId != LoginScreen.resaultUserId)
+                    {
+                        Image image = Image.FromFile(item.Picture);
+                        dataGridView1.Rows.Add(image, item.UserId, item.Id, item.Name, item.Description, item.Price, resaultCategory, item.Location);
+                    }
 
                 }
-
+                
             }
             else
             {
+                List<SellingItems> resaultDeneme;
+                if (textBox_cuSearch.Text == "")
+                {
+                    resaultDeneme = sellingItemsManager.GetAll(null);
+                }
+                else
+                {
+                    resaultDeneme = sellingItemsManager.GetAll(textBox_cuSearch.Text.ToString());
+                }
+
                 foreach (var item in categoryManager.GetAll())
                 {
                     if (cmbKategoriler.Text == item.CategoryName)
@@ -146,8 +156,10 @@ namespace Forms
                         }
                     }
                     Image image = Image.FromFile(item.Picture);
-                    dataGridView1.Rows.Add(image,item.UserId,item.Id,item.Name, item.Description, item.Price, resaultCategory, item.Location);
-
+                    if (item.Name.Contains(textBox_cuSearch.Text.ToString()))
+                    {
+                        dataGridView1.Rows.Add(image, item.UserId, item.Id, item.Name, item.Description, item.Price, resaultCategory, item.Location);
+                    }
                 }
                 
                 
@@ -185,13 +197,22 @@ namespace Forms
                     resaultImage = item.Picture;
                 }
             }
+            int tutucu = 0;
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+            foreach (var ct in categoryManager.GetAll())
+            {
+                if (dataGridView1.CurrentRow.Cells[6].Value.ToString() == ct.CategoryName)
+                {
+                    tutucu = ct.Id;
+                }
+            }
             soldItems.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[2].Value.ToString());
             soldItems.Picture = resaultImage;
             soldItems.UserId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[1].Value.ToString());
             soldItems.Name = dataGridView1.CurrentRow.Cells[3].Value.ToString();
             soldItems.Description = dataGridView1.CurrentRow.Cells[4].Value.ToString();
             soldItems.Price = Convert.ToInt32(dataGridView1.CurrentRow.Cells[5].Value.ToString());
-            soldItems.CategoryId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[6].Value.ToString());
+            soldItems.CategoryId = tutucu;
             soldItems.Location = dataGridView1.CurrentRow.Cells[7].Value.ToString();
             soldManager.Add(soldItems);
 

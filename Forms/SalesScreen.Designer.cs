@@ -147,6 +147,10 @@ namespace Forms
             // 
             // dgvListele
             // 
+            this.dgvListele.AllowDrop = true;
+            this.dgvListele.AllowUserToAddRows = false;
+            this.dgvListele.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvListele.BackgroundColor = System.Drawing.Color.DarkSlateBlue;
             this.dgvListele.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListele.Location = new System.Drawing.Point(3, 73);
             this.dgvListele.Name = "dgvListele";
@@ -223,6 +227,7 @@ namespace Forms
             // 
             // cmbUrunKategorisi
             // 
+            this.cmbUrunKategorisi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbUrunKategorisi.FormattingEnabled = true;
             this.cmbUrunKategorisi.Location = new System.Drawing.Point(163, 256);
             this.cmbUrunKategorisi.Name = "cmbUrunKategorisi";
@@ -416,6 +421,7 @@ namespace Forms
             // 
             // cmbGuncelleUrunKategorisi
             // 
+            this.cmbGuncelleUrunKategorisi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGuncelleUrunKategorisi.FormattingEnabled = true;
             this.cmbGuncelleUrunKategorisi.Location = new System.Drawing.Point(382, 114);
             this.cmbGuncelleUrunKategorisi.Name = "cmbGuncelleUrunKategorisi";
@@ -528,6 +534,9 @@ namespace Forms
             // 
             // dgvSatilanUrunler
             // 
+            this.dgvSatilanUrunler.AllowUserToAddRows = false;
+            this.dgvSatilanUrunler.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvSatilanUrunler.BackgroundColor = System.Drawing.Color.DarkSlateBlue;
             this.dgvSatilanUrunler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSatilanUrunler.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSatilanUrunler.Location = new System.Drawing.Point(0, 0);
